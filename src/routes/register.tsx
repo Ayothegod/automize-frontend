@@ -1,15 +1,16 @@
-// import { registerSchema } from "@/lib/schema/authSchema";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// type RegisterSchemaType = z.infer<typeof registerSchema>;
+import { registerSchema } from "@/lib/schema/authSchema";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Label } from "@/components/ui/label";
+type RegisterSchemaType = z.infer<typeof registerSchema>;
 
 export default function Register() {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<RegisterSchemaType>({ resolver: zodResolver(registerSchema) });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterSchemaType>({ resolver: zodResolver(registerSchema) });
 
   return (
     <main>
@@ -22,7 +23,7 @@ export default function Register() {
         </div>
 
         {/* second part */}
-        {/* <div className="h-full w-full px-2 py-4 sm:w-1/2">
+        <div className="h-full w-full px-2 py-4 sm:w-1/2">
           <div className="mx-auto flex max-w-[448px] flex-col justify-center px-2">
             <div className="mb-16">
               <h1 className="text-2xl font-bold">LOGO</h1>
@@ -31,9 +32,8 @@ export default function Register() {
             <h1 className="text-2xl font-medium">Hi, Welcome to studify!</h1>
             <Label className="text-neutral-500">Start your journey</Label>
 
-            <Form
+            <form
               method="post"
-              id={form.id}
               noValidate
               className="mt-8 flex flex-col gap-y-4"
             >
@@ -131,9 +131,9 @@ export default function Register() {
                   <span className="text-purple-600">Sign in</span>
                 </Link>
               </p>
-            </Form>
+            </form>
           </div>
-        </div> */}
+        </div>
       </div>
     </main>
   );
