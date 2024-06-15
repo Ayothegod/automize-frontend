@@ -1,6 +1,6 @@
 import { registerSchema } from "@/lib/schema/authSchema";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -34,7 +34,7 @@ export default function Register() {
               <h1 className="text-2xl font-bold">LOGO</h1>
             </div>
 
-            <h1 className="text-2xl font-medium">Hi, Welcome to studify!</h1>
+            <h1 className="text-2xl font-medium">Hi, Welcome to automize!</h1>
             <Label className="text-neutral-500">Start your journey</Label>
 
             <form
