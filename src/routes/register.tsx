@@ -1,8 +1,11 @@
 import { registerSchema } from "@/lib/schema/authSchema";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 type RegisterSchemaType = z.infer<typeof registerSchema>;
 
 export default function Register() {
@@ -11,6 +14,8 @@ export default function Register() {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterSchemaType>({ resolver: zodResolver(registerSchema) });
+
+  const onSubmit: SubmitHandler<RegisterSchemaType> = (data) => console.log(data);
 
   return (
     <main>
@@ -34,74 +39,73 @@ export default function Register() {
 
             <form
               method="post"
-              noValidate
+              onSubmit={handleSubmit(onSubmit)}
               className="mt-8 flex flex-col gap-y-4"
             >
               <div>
                 <Label className="text-xs">First Name</Label>
                 <Input
                   type="text"
-                  key={fields.firstname.key}
-                  name={fields.firstname.name}
-                  defaultValue={fields.firstname.initialValue}
+                  {...register("firstname")}
                   placeholder="Enter your first name"
                 />
-                <Label className="text-xs text-red-500">
-                  {fields.firstname?.errors}
-                </Label>
+                {errors.firstname && (
+                  <Label className="text-xs text-red-500">
+                    {errors.firstname?.message}
+                  </Label>
+                )}
               </div>
               <div>
                 <Label className="text-xs">Last Name</Label>
                 <Input
                   type="text"
-                  key={fields.lastname.key}
-                  name={fields.lastname.name}
-                  defaultValue={fields.lastname.initialValue}
+                  {...register("lastname")}
                   placeholder="Enter your last name"
                 />
-                <Label className="text-xs text-red-500">
-                  {fields.lastname?.errors}
-                </Label>
+                {errors.lastname && (
+                  <Label className="text-xs text-red-500">
+                    {errors.lastname?.message}
+                  </Label>
+                )}
               </div>
               <div>
                 <Label className="text-xs">Email Address</Label>
                 <Input
                   type="text"
-                  key={fields.email.key}
-                  name={fields.email.name}
-                  defaultValue={fields.email.initialValue}
+                  {...register("email")}
                   placeholder="Enter your email address"
                 />
-                <Label className="text-xs text-red-500">
-                  {fields.email.errors}
-                </Label>
+                {errors.email && (
+                  <Label className="text-xs text-red-500">
+                    {errors.email?.message}
+                  </Label>
+                )}
               </div>
               <div>
                 <Label className="text-xs">Username</Label>
                 <Input
                   type="text"
-                  key={fields.username.key}
-                  name={fields.username.name}
-                  defaultValue={fields.username.initialValue}
+                  {...register("username")}
                   placeholder="unique username"
                 />
-                <Label className="text-xs text-red-500">
-                  {fields.username.errors}
-                </Label>
+                {errors.username && (
+                  <Label className="text-xs text-red-500">
+                    {errors.username?.message}
+                  </Label>
+                )}
               </div>
-
               <div>
                 <Label className="text-xs">Password</Label>
                 <Input
                   type="password"
-                  key={fields.password.key}
-                  name={fields.password.name}
-                  defaultValue={fields.password.initialValue}
+                  {...register("password")}
                   placeholder="Enter your password..."
                 />
-                <Label className="text-xs text-red-500">
-                  {fields.password.errors}
-                </Label>
+                {errors.password && (
+                  <Label className="text-xs text-red-500">
+                    {errors.password?.message}
+                  </Label>
+                )}
               </div>
 
               <Label>
@@ -109,9 +113,8 @@ export default function Register() {
                   <span>Remember me</span>
                   <input
                     type="checkbox"
-                    key={fields.remember.key}
-                    name={fields.remember.name}
-                    defaultChecked={fields.remember.initialValue === "on"}
+                    {...register("remember")}
+                    // defaultChecked={fields.remember.initialValue === "on"}
                   />
                 </div>
               </Label>
