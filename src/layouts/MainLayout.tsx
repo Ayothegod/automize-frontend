@@ -1,10 +1,11 @@
 import TopBar from "@/components/layout/TopBar";
-import { sidebarData } from "@/lib/data";
-import * as Icons from "lucide-react";
+// import { sidebarData } from "@/lib/data";
+// import * as Icons from "lucide-react";
 import { LinkIcon } from "lucide-react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet} from "react-router-dom";
 
 export default function MainLayout() {
+    // const location = useLocation()
   return (
     <div className="">
     <section className="max-w-5xl mx-auto flex px-2">
@@ -16,7 +17,8 @@ export default function MainLayout() {
             <span>SocialSync</span>
           </div>
 
-          <div>Active accounts</div>
+          <div>Active accounts</div> 
+          <Link to="/login">To login</Link>
 
           {/* <ul className="flex flex-col gap-1">
             {sidebarData.map((data) => {
