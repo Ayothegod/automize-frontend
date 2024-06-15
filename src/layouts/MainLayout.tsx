@@ -8,9 +8,9 @@ export default function MainLayout() {
     // const location = useLocation()
   return (
     <div className="">
-    <section className="max-w-5xl mx-auto flex px-2">
+    <section className="max-w-6xl mx-auto flex px-2">
       {/* DESKTOP-SIDEBAR */}
-      <div className="hidden md:flex md:w-[280px] flex-shrink-0">
+      <div className="hidden md:flex md:w-[280px] flex-shrink-0 debug">
         <div className="w-full h-screen py-4 space-y-4">
           <div className="flex items-center gap-4 text-2xl font-bold">
             <LinkIcon className="w-6 h-6" />
@@ -34,7 +34,7 @@ export default function MainLayout() {
         </div>
       </div>
 
-      <div className="w-full flex-grow">
+      <div className="w-full flex-grow min-h-screen debug">
         <TopBar/>
         <Outlet />
       </div>
