@@ -5,8 +5,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, json, redirect } from "react-router-dom";
+import Cookies from "js-cookie";
 type RegisterSchemaType = z.infer<typeof registerSchema>;
+
+export async function Loader() {
+  const user = Cookies.get("user_access");
+
+  if (user) {
+    return redirect("/dashboard");
+  }
+
+  return json(null);
+}
 
 export default function Register() {
   const {
@@ -15,7 +26,58 @@ export default function Register() {
     formState: { errors },
   } = useForm<RegisterSchemaType>({ resolver: zodResolver(registerSchema) });
 
-  const onSubmit: SubmitHandler<RegisterSchemaType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<RegisterSchemaType> = async(data) => {
+    console.log(data);
+    
+    // try {
+    //   const response = await axios.post(
+    //     `${BASE_URL}/accounts/login/`,
+    //     {
+    //       username: data.username,
+    //       password: data.password,
+    //     },
+    //     { headers: {} }
+    //   );
+    //   console.log(response.data);
+
+    //   Cookies.set("user_access", `${response.data?.access}`, {
+    //     expires: 1,
+    //     secure: false,
+    //   });
+    //   Cookies.set("user_id", `${response.data?.id}`, {
+    //     expires: 1,
+    //     secure: false,
+    //   });
+
+    //   toast({
+    //     description: `Welcome back, ${user}`,
+    //   });
+    //   return navigate("/dashboard");
+    // } catch (error: any) {
+    //   console.log(error);
+
+    //   if (error.response) {
+    //     toast({
+    //       variant: "destructive",
+    //       description: `Invalid credentials, try again!`,
+    //     });
+    //     return null;
+    //   } else if (error.request) {
+    //     toast({
+    //       variant: "destructive",
+    //       title: "Uh oh! Something went wrong.",
+    //       description: "There was a problem with your request.",
+    //     });
+    //     return null;
+    //   } else {
+    //     toast({
+    //       variant: "destructive",
+    //       description: "Something went wrong, try again later!",
+    //     });
+    //     return null;
+    //   }
+    // }
+  }
 
   return (
     <main>

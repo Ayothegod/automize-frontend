@@ -6,7 +6,7 @@ import Root from "./routes/root.tsx";
 import RootLayout from "./layouts/RootLayout.tsx";
 import MainLayout from "./layouts/MainLayout.tsx";
 import Dashboard, {Loader as DashboardLoader} from "./routes/Dashboard.tsx";
-import Register from "./routes/register.tsx";
+import Register, {Loader as RegisterLoader} from "./routes/register.tsx";
 import Login, {Loader as LoginLoader} from "./routes/login.tsx";
 
 const router = createBrowserRouter([
@@ -22,6 +22,7 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+    loader: RegisterLoader
   },
   {
     element: <MainLayout />,
