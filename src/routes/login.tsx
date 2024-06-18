@@ -1,20 +1,31 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { BASE_URL } from "@/lib/data";
 import { loginSchema } from "@/lib/schema/authSchema";
-import { Link } from "react-router-dom";
-import { z } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { BASE_URL } from "@/lib/data";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
+import Cookies from "js-cookie";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link, json, redirect, useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 type LoginSchemaType = z.infer<typeof loginSchema>;
 
+export async function Loader() {
+  const user = Cookies.get("user_access");
+
+  if (user) {
+    return redirect("/dashboard");
+  }
+
+  return json(null);
+}
+
 export default function Login() {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -24,7 +35,6 @@ export default function Login() {
   const user = "AYO";
 
   const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
-    console.log(data);
     try {
       const response = await axios.post(
         `${BASE_URL}/accounts/login/`,
@@ -34,17 +44,24 @@ export default function Login() {
         },
         { headers: {} }
       );
-      console.log("data:", response.data);
-      // SAVE THE TOKEN TO STATE OR SOMETHING
+      console.log(response.data);
 
-      // RETURN A TOAST FOR NOTIFICATION
+      Cookies.set("user_access", `${response.data?.access}`, {
+        expires: 1,
+        secure: false,
+      });
+      Cookies.set("user_id", `${response.data?.id}`, {
+        expires: 1,
+        secure: false,
+      });
+
       toast({
         description: `Welcome back, ${user}`,
       });
-      return null;
+      return navigate("/dashboard");
     } catch (error: any) {
       console.log(error);
-      
+
       if (error.response) {
         toast({
           variant: "destructive",
