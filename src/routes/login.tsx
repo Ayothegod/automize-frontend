@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios"
 
 type LoginSchemaType = z.infer<typeof loginSchema>;
 
@@ -16,7 +17,51 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginSchemaType>({ resolver: zodResolver(loginSchema) });
 
-  const onSubmit: SubmitHandler<LoginSchemaType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<LoginSchemaType> = (data) => {
+    console.log(data)
+
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/v1/accounts/login/',
+        {
+          username: submission.value.username,
+          password: submission.value.password,
+        },
+      )
+      console.log('data:', response.data)
+      return null
+
+      // session.set('data', response.data)
+      // return redirectWithSuccess(
+      //   '/dashboard',
+      //   {
+      //     message: `Welcome back, ${submission.value.username}`,
+      //   },
+      //   {
+      //     headers: {
+      //       'Set-Cookie': await commitSession(session),
+      //     },
+      //   },
+      // )
+    } catch (error: any) {
+      // if (error.response) {
+      //   return redirectWithError('/login', {
+      //     message: `${error.response.data.detail}`,
+      //     description: `Error! please try again`,
+      //   })
+      // } else if (error.request) {
+      //   return redirectWithError('/login', {
+      //     message: `Server error`,
+      //   })
+      // } else {
+      //   return redirectWithError('/login', {
+      //     message: `Error! please try again`,
+      //   })
+      // }
+      console.log(error);
+      return null
+    }
+  }
 
   return (
     <main>
