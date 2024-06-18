@@ -17,9 +17,13 @@ export default function CreateDebt() {
     handleSubmit,
     formState: { errors },
   } = useForm<DebtSchemaType>({ resolver: zodResolver(debtSchema) });
+  //   } = useForm()
 
+  //     const user = Cookies.get("user_access");
+
+  //   const onSubmit = async (data) => {
   const onSubmit: SubmitHandler<DebtSchemaType> = async (data) => {
-    //     const user = Cookies.get("user_access");
+    console.log(errors);
     console.log(data);
   };
 
@@ -30,116 +34,136 @@ export default function CreateDebt() {
           <form
             method="post"
             onSubmit={handleSubmit(onSubmit)}
-            className="mt-8 flex flex-col gap-y-4"
+            className="mt-8 flex flex-col"
           >
-            <div>
-              <Label className="text-xs">Debtor First-Name</Label>
-              <Input
-                type="text"
-                {...register("debtorFirstname")}
-                placeholder="Enter your debtor first name"
-              />
-              {/* {errors.firstname && (
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label className="text-xs">Debtor First-Name</Label>
+                <Input
+                  type="text"
+                  {...register("debtorFirstname")}
+                  placeholder="Enter your debtor first name"
+                />
+                {errors.debtorFirstname && (
                   <Label className="text-xs text-red-500">
-                    {errors.firstname?.message}
+                    {errors.debtorFirstname?.message}
                   </Label>
-                )} */}
-            </div>
-            <div>
-              <Label className="text-xs">Debtor Last-Name</Label>
-              <Input
-                type="text"
-                {...register("debtorLastname")}
-                placeholder="Enter your debtor last name"
-              />
-              {/* {errors.lastname && (
+                )}
+              </div>
+              <div>
+                <Label className="text-xs">Debtor Last-Name</Label>
+                <Input
+                  type="text"
+                  {...register("debtorLastname")}
+                  placeholder="Enter your debtor last name"
+                />
+                {errors.debtorLastname && (
                   <Label className="text-xs text-red-500">
-                    {errors.lastname?.message}
+                    {errors.debtorLastname?.message}
                   </Label>
-                )} */}
-            </div>
-            <div>
-              <Label className="text-xs">Debtor Phone-Number</Label>
-              <Input
-                type="number"
-                {...register("debtorPhonenumber")}
-                placeholder="Enter your debtor phone number"
-              />
-              {/* {errors.email && (
+                )}
+              </div>
+              <div>
+                <Label className="text-xs">Debtor Phone-Number</Label>
+                <Input
+                  type="number"
+                  {...register("debtorPhonenumber")}
+                  placeholder="Enter your debtor phone number"
+                />
+                {errors.debtorPhonenumber && (
                   <Label className="text-xs text-red-500">
-                    {errors.email?.message}
+                    {errors.debtorPhonenumber?.message}
                   </Label>
-                )} */}
-            </div>
-            <div>
-              <Label className="text-xs">Amount of Debt</Label>
-              <Input
-                type="number"
-                {...register("amount")}
-                placeholder="Enter the debt amount"
-              />
-              {/* {errors.username && (
+                )}
+              </div>
+              <div>
+                <Label className="text-xs">Amount of Debt</Label>
+                <Input
+                  type="number"
+                  {...register("amount")}
+                  placeholder="Enter the debt amount"
+                />
+                {errors.amount && (
                   <Label className="text-xs text-red-500">
-                    {errors.username?.message}
+                    {errors.amount?.message}
                   </Label>
-                )} */}
-            </div>
-            <div>
-              <Label className="text-xs">Due date</Label>
-              <Input
-                type="date"
-                {...register("dueDate")}
-                placeholder="Enter the debt due date"
-              />
-              {/* {errors.password && (
+                )}
+              </div>
+              <div>
+                <Label className="text-xs">Due date</Label>
+                <Input
+                  type="date"
+                  {...register("dueDate")}
+                  placeholder="Enter the debt due date"
+                />
+                {errors.dueDate && (
                   <Label className="text-xs text-red-500">
-                    {errors.password?.message}
+                    {errors.dueDate?.message}
                   </Label>
-                )} */}
-            </div>
-            <div>
-              <Label className="text-xs">Interest Rate</Label>
-              <Input
-                type="number"
-                {...register("interestRate")}
-                placeholder="Enter the debt interest rate"
-              />
-              {/* {errors.password && (
+                )}
+              </div>
+              <div>
+                <Label className="text-xs">Interest Rate</Label>
+                <Input
+                  type="number"
+                  {...register("interestRate")}
+                  placeholder="Enter the debt interest rate"
+                />
+                {errors.interestRate && (
                   <Label className="text-xs text-red-500">
-                    {errors.password?.message}
+                    {errors.interestRate?.message}
                   </Label>
-                )} */}
-            </div>
-            <div>
-              <Label className="text-xs">Payment Frequency</Label>
-              <Input
-                type="text"
-                {...register("paymentFrequency")}
-                placeholder="frequency of payment i.e monthly"
-              />
-              {/* {errors.password && (
+                )}
+              </div>
+              <div>
+                <Label className="text-xs">Payment Frequency</Label>
+                <Input
+                  type="text"
+                  {...register("paymentFrequency")}
+                  placeholder="frequency of payment i.e monthly"
+                />
+                {errors.paymentFrequency && (
                   <Label className="text-xs text-red-500">
-                    {errors.password?.message}
+                    {errors.paymentFrequency?.message}
                   </Label>
-                )} */}
-            </div>
-            <div>
-              <Label className="text-xs">Payment Method</Label>
-              <Input
-                type="text"
-                {...register("paymentMethod")}
-                placeholder="bank deposit/transfer"
-              />
-              {/* {errors.password && (
+                )}
+              </div>
+              <div>
+                <Label className="text-xs">Payment Method</Label>
+                <Input
+                  type="text"
+                  {...register("paymentMethod")}
+                  placeholder="bank deposit/transfer"
+                />
+                {errors.paymentMethod && (
                   <Label className="text-xs text-red-500">
-                    {errors.password?.message}
+                    {errors.paymentMethod?.message}
                   </Label>
-                )} */}
+                )}
+              </div>
+            </div> */}
+
+            <div>
+              <Select>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select a fruit" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Fruits</SelectLabel>
+                    <SelectItem value="apple">Apple</SelectItem>
+                    <SelectItem value="banana">Banana</SelectItem>
+                    <SelectItem value="blueberry">Blueberry</SelectItem>
+                    <SelectItem value="grapes">Grapes</SelectItem>
+                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
 
             <Button
               type="submit"
-              className="mt-4"
+              className="mt-8 ml-auto w-full md:w-fit"
               name="intent"
               value="register"
             >

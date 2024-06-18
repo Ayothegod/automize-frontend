@@ -13,11 +13,11 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px; /* width of the scrollbar */
+  width: 2px; /* width of the scrollbar */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #edf2f7; /* color of the scrollbar track */
+  background: red; /* color of the scrollbar track */
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
