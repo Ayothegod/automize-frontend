@@ -1,5 +1,6 @@
 import { json, redirect } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Button } from "@/components/ui/button";
 
 export async function Loader() {
   const user = Cookies.get("user_access");
@@ -13,5 +14,16 @@ export async function Loader() {
 }
 
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  const logout = async () => {
+    Cookies.remove("user_access");
+    return redirect("/login");
+  };
+
+  return (
+    <div>
+      <p>Dashboard</p>
+
+      <Button onClick={logout}>Log out</Button>
+    </div>
+  );
 }

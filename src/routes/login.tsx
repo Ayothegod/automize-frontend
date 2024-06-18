@@ -4,9 +4,11 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { BASE_URL } from "@/lib/data";
 import { loginSchema } from "@/lib/schema/authSchema";
+import { useProcessStore } from "@/lib/store/stateStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Loader2 } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, json, redirect, useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -26,15 +28,15 @@ export async function Loader() {
 export default function Login() {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { process, setProcess } = useProcessStore();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginSchemaType>({ resolver: zodResolver(loginSchema) });
 
-  const user = "AYO";
-
   const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
+    setProcess();
     try {
       const response = await axios.post(
         `${BASE_URL}/accounts/login/`,
@@ -56,7 +58,7 @@ export default function Login() {
       });
 
       toast({
-        description: `Welcome back, ${user}`,
+        description: `Welcome back, ${data.username}`,
       });
       return navigate("/dashboard");
     } catch (error: any) {
@@ -82,6 +84,8 @@ export default function Login() {
         });
         return null;
       }
+    } finally {
+      setProcess();
     }
   };
 
@@ -92,6 +96,10 @@ export default function Login() {
         <div className="hidden h-full bg-neutral-200 sm:block sm:w-1/2">
           <div className="mx-auto max-w-[448px]">
             <p>Hello</p>
+            {process && <p className="text-5xl text-amber-800">Fire</p>}
+            <Button onClick={() => setProcess()}>
+              {process ? "End Process" : "Update PROCESS"}
+            </Button>
           </div>
         </div>
 
@@ -159,7 +167,7 @@ export default function Login() {
                 name="intent"
                 value="login"
               >
-                Login
+                {process ? <Loader2 className="animate-spin" /> : "Login"}
               </Button>
 
               <p className="flex items-center gap-2 text-center text-sm font-medium text-neutral-500">

@@ -5,8 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link, json, redirect } from "react-router-dom";
+import { Link, json, redirect, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from "axios";
+import { BASE_URL } from "@/lib/data";
+import { useToast } from "@/components/ui/use-toast";
 type RegisterSchemaType = z.infer<typeof registerSchema>;
 
 export async function Loader() {
@@ -20,64 +23,56 @@ export async function Loader() {
 }
 
 export default function Register() {
+  const { toast } = useToast();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterSchemaType>({ resolver: zodResolver(registerSchema) });
 
-  const onSubmit: SubmitHandler<RegisterSchemaType> = async(data) => {
-    console.log(data);
-    
-    // try {
-    //   const response = await axios.post(
-    //     `${BASE_URL}/accounts/login/`,
-    //     {
-    //       username: data.username,
-    //       password: data.password,
-    //     },
-    //     { headers: {} }
-    //   );
-    //   console.log(response.data);
+  const onSubmit: SubmitHandler<RegisterSchemaType> = async (data) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/accounts/register/`, {
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        username: data.username,
+        password: data.password,
+      });
 
-    //   Cookies.set("user_access", `${response.data?.access}`, {
-    //     expires: 1,
-    //     secure: false,
-    //   });
-    //   Cookies.set("user_id", `${response.data?.id}`, {
-    //     expires: 1,
-    //     secure: false,
-    //   });
+      console.log(response.data);
 
-    //   toast({
-    //     description: `Welcome back, ${user}`,
-    //   });
-    //   return navigate("/dashboard");
-    // } catch (error: any) {
-    //   console.log(error);
+      toast({
+        title: `Welcome to automize, ${data.username}`,
+        description: `Login to continue to Automize`,
+      });
+      return navigate("/login");
+    } catch (error: any) {
+      console.log(error);
 
-    //   if (error.response) {
-    //     toast({
-    //       variant: "destructive",
-    //       description: `Invalid credentials, try again!`,
-    //     });
-    //     return null;
-    //   } else if (error.request) {
-    //     toast({
-    //       variant: "destructive",
-    //       title: "Uh oh! Something went wrong.",
-    //       description: "There was a problem with your request.",
-    //     });
-    //     return null;
-    //   } else {
-    //     toast({
-    //       variant: "destructive",
-    //       description: "Something went wrong, try again later!",
-    //     });
-    //     return null;
-    //   }
-    // }
-  }
+      if (error.response.data.username) {
+        toast({
+          variant: "destructive",
+          description: `Username already exists, try again!`,
+        });
+        return null;
+      } else if (error.request) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+        });
+        return null;
+      } else {
+        toast({
+          variant: "destructive",
+          description: "Something went wrong, try again later!",
+        });
+        return null;
+      }
+    }
+  };
 
   return (
     <main>
@@ -187,7 +182,7 @@ export default function Register() {
                 name="intent"
                 value="register"
               >
-                Login
+                Register
               </Button>
 
               <p className="flex items-center gap-2 text-center text-sm font-medium text-neutral-500">
