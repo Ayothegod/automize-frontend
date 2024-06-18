@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const loginSchema = z.object({
   username: z
     .string({ required_error: 'Username is required' })
-    .min(6, 'Username is too short')
+    .min(5, 'Username is too short')
     .max(100, 'Username is too long')
     .toLowerCase()
     .trim(),

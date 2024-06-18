@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios"
+import axios from "axios";
+// import { BASE_URL } from "@/lib/data";
+// import { ToastAction } from "@/components/ui/toast";
+// import { useToast } from "@/components/ui/use-toast";
+import { BASE_URL } from "@/lib/data";
 
 type LoginSchemaType = z.infer<typeof loginSchema>;
 
@@ -17,51 +21,34 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginSchemaType>({ resolver: zodResolver(loginSchema) });
 
-  const onSubmit: SubmitHandler<LoginSchemaType> = (data) => {
-    console.log(data)
-
+  const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/v1/accounts/login/',
+        `${BASE_URL}/api/v1/accounts/login/`,
         {
-          username: submission.value.username,
-          password: submission.value.password,
+          username: data.username,
+          password: data.password,
         },
-      )
-      console.log('data:', response.data)
-      return null
+        { headers: {} }
+      );
+      console.log("data:", response.data);
+      // SAVE THE TOKEN TO STATE OR SOMETHING
 
-      // session.set('data', response.data)
-      // return redirectWithSuccess(
-      //   '/dashboard',
-      //   {
-      //     message: `Welcome back, ${submission.value.username}`,
-      //   },
-      //   {
-      //     headers: {
-      //       'Set-Cookie': await commitSession(session),
-      //     },
-      //   },
-      // )
+      // RETURN A TOAST FOR NOTIFICATION
+      return null;
     } catch (error: any) {
-      // if (error.response) {
-      //   return redirectWithError('/login', {
-      //     message: `${error.response.data.detail}`,
-      //     description: `Error! please try again`,
-      //   })
-      // } else if (error.request) {
-      //   return redirectWithError('/login', {
-      //     message: `Server error`,
-      //   })
-      // } else {
-      //   return redirectWithError('/login', {
-      //     message: `Error! please try again`,
-      //   })
-      // }
-      console.log(error);
-      return null
+      if (error.response) {
+        console.log(error.response.data.detail);
+        return null;
+      } else if (error.request) {
+        console.log("Server error");
+        return null;
+      } else {
+        console.log(`Error! please try again`);
+        return null;
+      }
     }
-  }
+  };
 
   return (
     <main>
