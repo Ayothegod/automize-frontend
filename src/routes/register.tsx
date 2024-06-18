@@ -9,7 +9,10 @@ import { Link, json, redirect, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { BASE_URL } from "@/lib/data";
+import { Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useProcessStore } from "@/lib/store/stateStore";
+
 type RegisterSchemaType = z.infer<typeof registerSchema>;
 
 export async function Loader() {
@@ -23,6 +26,7 @@ export async function Loader() {
 }
 
 export default function Register() {
+  const { process, setProcess } = useProcessStore();
   const { toast } = useToast();
   const navigate = useNavigate();
   const {
@@ -32,6 +36,7 @@ export default function Register() {
   } = useForm<RegisterSchemaType>({ resolver: zodResolver(registerSchema) });
 
   const onSubmit: SubmitHandler<RegisterSchemaType> = async (data) => {
+    setProcess();
     try {
       const response = await axios.post(`${BASE_URL}/accounts/register/`, {
         firstname: data.firstname,
@@ -71,6 +76,8 @@ export default function Register() {
         });
         return null;
       }
+    } finally {
+      setProcess();
     }
   };
 
@@ -182,7 +189,7 @@ export default function Register() {
                 name="intent"
                 value="register"
               >
-                Register
+                {process ? <Loader2 className="animate-spin" /> : "Login"}
               </Button>
 
               <p className="flex items-center gap-2 text-center text-sm font-medium text-neutral-500">
