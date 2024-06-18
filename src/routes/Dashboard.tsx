@@ -41,7 +41,6 @@ export default function Dashboard() {
 
       {debtModal && <CreateDebt />}
 
-      {/* create devt mobile */}
       <div
         className="fixed bottom-2 right-4 shadow-md p-1 bg-white rounded-full"
         onClick={() => setDebtModal()}
