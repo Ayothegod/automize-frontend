@@ -7,24 +7,27 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-// import { BASE_URL } from "@/lib/data";
-// import { ToastAction } from "@/components/ui/toast";
-// import { useToast } from "@/components/ui/use-toast";
 import { BASE_URL } from "@/lib/data";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 
 type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export default function Login() {
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginSchemaType>({ resolver: zodResolver(loginSchema) });
 
+  const user = "AYO";
+
   const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
+    console.log(data);
     try {
       const response = await axios.post(
-        `${BASE_URL}/api/v1/accounts/login/`,
+        `${BASE_URL}/accounts/login/`,
         {
           username: data.username,
           password: data.password,
@@ -35,16 +38,31 @@ export default function Login() {
       // SAVE THE TOKEN TO STATE OR SOMETHING
 
       // RETURN A TOAST FOR NOTIFICATION
+      toast({
+        description: `Welcome back, ${user}`,
+      });
       return null;
     } catch (error: any) {
+      console.log(error);
+      
       if (error.response) {
-        console.log(error.response.data.detail);
+        toast({
+          variant: "destructive",
+          description: `Invalid credentials, try again!`,
+        });
         return null;
       } else if (error.request) {
-        console.log("Server error");
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+        });
         return null;
       } else {
-        console.log(`Error! please try again`);
+        toast({
+          variant: "destructive",
+          description: "Something went wrong, try again later!",
+        });
         return null;
       }
     }
