@@ -17,14 +17,27 @@ export default function CreateDebt() {
     handleSubmit,
     formState: { errors },
   } = useForm<DebtSchemaType>({ resolver: zodResolver(debtSchema) });
-  //   } = useForm()
 
-  //     const user = Cookies.get("user_access");
-
+  //   } = useForm();
   //   const onSubmit = async (data) => {
+    
+  //     const user = Cookies.get("user_access");
+  //   {
+  //     debtorLastname: 'Ayomide',
+  //     debtorFirstname: 'Adebisi',
+  //     debtorPhonenumber: 32323,
+  //     amount: 23232,
+  //     dueDate: new Date('2024-06-20T00:00:00.000Z'),
+  //     interestRate: 127812,
+  //     paymentFrequency: 'Adebisi',
+  //     paymentMethod: 'Adebisi',
+  //     type: 'dept',
+  //     currency: 'US'
+  //   }
+
   const onSubmit: SubmitHandler<DebtSchemaType> = async (data) => {
-    console.log(errors);
     console.log(data);
+    console.log(errors);
   };
 
   return (
@@ -36,7 +49,7 @@ export default function CreateDebt() {
             onSubmit={handleSubmit(onSubmit)}
             className="mt-8 flex flex-col"
           >
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label className="text-xs">Debtor First-Name</Label>
                 <Input
@@ -141,26 +154,35 @@ export default function CreateDebt() {
                   </Label>
                 )}
               </div>
-            </div> */}
 
-            <div>
-              <Select>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select a fruit" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Fruits</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <div>
+                <Label className="text-xs">Dept Type</Label>
+                <Input
+                  type="text"
+                  {...register("type")}
+                  placeholder="Dept - Credit"
+                />
+                {errors.type && (
+                  <Label className="text-xs text-red-500">
+                    {errors.type?.message}
+                  </Label>
+                )}
+              </div>
+
+              <div>
+                <Label className="text-xs">Currency of Dept</Label>
+                <Input
+                  type="text"
+                  {...register("currency")}
+                  placeholder="'US', 'NG', 'CD', 'PD', 'Y'"
+                />
+                {errors.currency && (
+                  <Label className="text-xs text-red-500">
+                    {errors.currency?.message}
+                  </Label>
+                )}
+              </div>
             </div>
-
             <Button
               type="submit"
               className="mt-8 ml-auto w-full md:w-fit"
