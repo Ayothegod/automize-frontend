@@ -1,43 +1,87 @@
+import { BASE_URL } from "@/lib/data";
 import { debtSchema } from "@/lib/schema/debtSchema";
-import Cookies from "js-cookie";
+import { useProcessStore } from "@/lib/store/stateStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { Loader2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { useToast } from "../ui/use-toast";
 
 type DebtSchemaType = z.infer<typeof debtSchema>;
 
 export default function CreateDebt() {
+  const { setDebtModal, isCreatingDebt, setIsCreatingDebt } = useProcessStore();
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<DebtSchemaType>({ resolver: zodResolver(debtSchema) });
 
-  //   } = useForm();
-  //   const onSubmit = async (data) => {
-    
-  //     const user = Cookies.get("user_access");
-  //   {
-  //     debtorLastname: 'Ayomide',
-  //     debtorFirstname: 'Adebisi',
-  //     debtorPhonenumber: 32323,
-  //     amount: 23232,
-  //     dueDate: new Date('2024-06-20T00:00:00.000Z'),
-  //     interestRate: 127812,
-  //     paymentFrequency: 'Adebisi',
-  //     paymentMethod: 'Adebisi',
-  //     type: 'dept',
-  //     currency: 'US'
-  //   }
-
   const onSubmit: SubmitHandler<DebtSchemaType> = async (data) => {
-    console.log(data);
-    console.log(errors);
+    const user = Cookies.get("user_access");
+    setIsCreatingDebt();
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/accounts/add-debt/`,
+        {
+          person: {
+            first_name: data.debtorFirstname,
+            last_name: data.debtorLastname,
+            phone_number: data.debtorPhonenumber,
+          },
+          type: data.type,
+          amount: data.amount,
+          currency: data.currency,
+          due_date: data.dueDate,
+          interest_rate: data.interestRate,
+          payment_frequency: data.paymentFrequency,
+          payment_method: data.paymentMethod,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user}`,
+          },
+        }
+      );
+      //   console.log(response.data);
+      toast({
+        description: `Dept created successfully`,
+      });
+      return null;
+    } catch (error: any) {
+      console.log(error);
+      if (error.response) {
+        toast({
+          variant: "destructive",
+          description: `Invalid fields, try again!`,
+        });
+        return null;
+      } else if (error.request) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+        });
+        return null;
+      } else {
+        toast({
+          variant: "destructive",
+          description: "Something went wrong, try again later!",
+        });
+        return null;
+      }
+    } finally {
+      setIsCreatingDebt();
+      setDebtModal();
+      console.log("FINALLY DONE");
+    }
   };
 
   return (
@@ -133,7 +177,7 @@ export default function CreateDebt() {
                 <Input
                   type="text"
                   {...register("paymentFrequency")}
-                  placeholder="frequency of payment i.e monthly"
+                  placeholder="'MONTHLY','BI-MONTHLY','WEEKLY','BI-WEEKLY','QUATERLY','SEMI-ANNUALLY','ANNUALLY'"
                 />
                 {errors.paymentFrequency && (
                   <Label className="text-xs text-red-500">
@@ -146,7 +190,7 @@ export default function CreateDebt() {
                 <Input
                   type="text"
                   {...register("paymentMethod")}
-                  placeholder="bank deposit/transfer"
+                  placeholder="'BANK TRANSFER', 'CASH', 'CREDIT CARD', 'DEBIT CARD', 'CHECK', 'OTHERS'"
                 />
                 {errors.paymentMethod && (
                   <Label className="text-xs text-red-500">
@@ -160,7 +204,7 @@ export default function CreateDebt() {
                 <Input
                   type="text"
                   {...register("type")}
-                  placeholder="Dept - Credit"
+                  placeholder="DR or CR"
                 />
                 {errors.type && (
                   <Label className="text-xs text-red-500">
@@ -189,8 +233,11 @@ export default function CreateDebt() {
               name="intent"
               value="register"
             >
-              Login
-              {/* {process ? <Loader2 className="animate-spin" /> : "Login"} */}
+              {isCreatingDebt ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Create dept"
+              )}
             </Button>
           </form>
         </div>

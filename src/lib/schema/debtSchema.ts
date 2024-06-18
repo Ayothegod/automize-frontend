@@ -1,9 +1,30 @@
 import { z } from "zod";
 
-const isDept = (val: string) => val === "dept" || val === "credit";
+const isDept = (val: string) => val === "DR" || val === "CR";
 
 const validValues = ["US", "NG", "CD", "PD", "Y"];
 const isCurrency = (val: string) => validValues.includes(val);
+
+const methods = [
+  "BANK TRANSFER",
+  "CASH",
+  "CREDIT CARD",
+  "DEBIT CARD",
+  "CHECK",
+  "OTHERS",
+];
+const isValidMethod = (val: string) => methods.includes(val);
+
+const frequency = [
+  "MONTHLY",
+  "BI-MONTHLY",
+  "WEEKLY",
+  "BI-WEEKLY",
+  "QUATERLY",
+  "SEMI-ANNUALLY",
+  "ANNUALLY",
+];
+const isValidFrequency = (val: string) => frequency.includes(val);
 
 export const debtSchema = z.object({
   debtorLastname: z
@@ -28,20 +49,28 @@ export const debtSchema = z.object({
     .string({
       required_error: "payment frequency is required",
     })
-    .min(3, "payment frequency is required"),
+    .min(3, "payment frequency is required")
+    .refine(isValidFrequency, {
+      message:
+        "  'MONTHLY','BI-MONTHLY','WEEKLY','BI-WEEKLY','QUATERLY','SEMI-ANNUALLY','ANNUALLY'",
+    }),
   paymentMethod: z
     .string({ required_error: "payment method is required" })
-    .min(3, "payment method is required"),
+    .min(3, "payment method is required")
+    .refine(isValidMethod, {
+      message:
+        "'BANK TRANSFER', 'CASH', 'CREDIT CARD', 'DEBIT CARD', 'CHECK', 'OTHERS'",
+    }),
   type: z
     .string({ required_error: "dept type is required" })
-    .min(3, "dept type is required")
+    .min(1, "dept type is required")
     .refine(isDept, {
-      message: "dept or credit",
+      message: "DR or CR",
     }),
   currency: z
     .string({ required_error: "currency is required" })
     .min(1, "currency is required")
     .refine(isCurrency, {
-      message: "'US', 'NG', 'CD', 'PD', 'Y'",
+      message: "'US $', 'NG #', 'CD', 'PD', 'Y'",
     }),
 });
