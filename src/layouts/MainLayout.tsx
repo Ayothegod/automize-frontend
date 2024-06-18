@@ -14,7 +14,7 @@ export default function MainLayout() {
     <div className="">
       <section className="max-w-6xl mx-auto flex px-2">
         {/* DESKTOP-SIDEBAR */}
-        <div className="hidden md:flex md:w-[280px] flex-shrink-0 debug">
+        <div className="hidden md:flex md:w-[240px] flex-shrink-0 debug">
           <div className="w-full h-screen py-4 space-y-4">
             <div className="flex items-center gap-4 text-2xl font-bold">
               <Logo logo={logoblack} className="h-6 w-6" />

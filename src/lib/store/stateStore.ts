@@ -30,9 +30,14 @@ import { create } from "zustand";
 interface LoadingState {
   process: boolean;
   setProcess: () => void;
+  debtModal: boolean;
+  setDebtModal: () => void;
 }
 
 export const useProcessStore = create<LoadingState>((set) => ({
   process: false,
   setProcess: () => set((state) => ({ process: !state.process })),
+  debtModal: false,
+  setDebtModal: () =>
+    set((state) => ({ debtModal: !state.debtModal })),
 }));

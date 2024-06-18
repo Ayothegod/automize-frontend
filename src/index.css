@@ -1,9 +1,27 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  
+@tailwind components;
+@tailwind utilities;
 
+.debug {
+  @apply border-2 border-red-500;
+}
 
-  .debug {
-    @apply border-2 border-red-500
-  }
+/* CustomScrollbar.css */
+.custom-scrollbar {
+  scrollbar-width: thin; /* "auto" or "thin" for Firefox */
+  scrollbar-color: #4a5568 #edf2f7; /* scrollbar track color and scrollbar thumb color */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #edf2f7; /* color of the scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4a5568; /* color of the scrollbar thumb */
+  border-radius: 3px; /* roundness of the scrollbar thumb */
+  border: 2px solid #edf2f7; /* border around the scrollbar thumb */
+}
