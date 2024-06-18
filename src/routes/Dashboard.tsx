@@ -2,9 +2,6 @@ import { json, redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import axios from "axios";
-import { BASE_URL } from "@/lib/data";
-import { debtSchema } from "@/lib/schema/debtSchema";
 import { useProcessStore } from "@/lib/store/stateStore";
 import CreateDebt from "@/components/build/CreateDebt";
 
@@ -12,9 +9,9 @@ export async function Loader() {
   const user = Cookies.get("user_access");
   console.log(user);
 
-  // if (!user) {
-  //   return redirect("/login");
-  // }
+  if (!user) {
+    return redirect("/login");
+  }
 
   return json(null);
 }
@@ -39,7 +36,7 @@ export default function Dashboard() {
           <Button onClick={() => setDebtModal()}>Create debt</Button>
         </div>
 
-        {/* <Button onClick={logout}>Log out</Button> */}
+        <Button onClick={logout}>Log out</Button>
       </div>
 
       {debtModal && <CreateDebt />}

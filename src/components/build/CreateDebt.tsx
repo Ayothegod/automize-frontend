@@ -50,7 +50,7 @@ export default function CreateDebt() {
           },
         }
       );
-      //   console.log(response.data);
+        console.log(response.data);
       toast({
         description: `Dept created successfully`,
       });
