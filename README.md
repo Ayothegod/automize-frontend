@@ -9,7 +9,7 @@
 - make the header beautiful
 
 
-- 
+- i need the owner/ user profile
 
 
 - TODO and time
