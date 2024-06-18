@@ -14,9 +14,10 @@ export async function Loader() {
 }
 
 export default function Dashboard() {
+
   const logout = async () => {
     Cookies.remove("user_access");
-    return redirect("/login");
+    return window.location.reload();
   };
 
   return (
