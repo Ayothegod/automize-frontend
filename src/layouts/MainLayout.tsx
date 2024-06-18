@@ -1,15 +1,15 @@
 import Logo from "@/components/layout/Logo";
 import TopBar from "@/components/layout/TopBar";
 // import { sidebarData } from "@/lib/data";
-import * as Icons from "lucide-react";
+// import * as Icons from "lucide-react";
 // import { LinkIcon } from "lucide-react";
-import { Link, Outlet, useLocation } from "react-router-dom";
 import logoblack from "@/assets/logoblack.svg";
+import { Link, Outlet } from "react-router-dom";
 // import logowhite from "@/assets/logowhite.svg";
 
 export default function MainLayout() {
-  const location = useLocation();
-  const path = location.pathname;
+  // const location = useLocation();
+  // const path = location.pathname;
   return (
     <div className="">
       <section className="max-w-6xl mx-auto flex px-2">
