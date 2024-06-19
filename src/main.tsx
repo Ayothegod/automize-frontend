@@ -8,6 +8,7 @@ import MainLayout from "./layouts/MainLayout.tsx";
 import Dashboard, {Loader as DashboardLoader} from "./routes/Dashboard.tsx";
 import Register, {Loader as RegisterLoader} from "./routes/register.tsx";
 import Login, {Loader as LoginLoader} from "./routes/login.tsx";
+import Debt from "./routes/Debt.tsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <Dashboard />,
         loader: DashboardLoader
+      },
+      {
+        path: "/debts/:id",
+        element: <Debt />,
       },
     ],
   },

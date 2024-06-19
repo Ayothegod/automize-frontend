@@ -4,25 +4,21 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useProcessStore } from "@/lib/store/stateStore";
 import CreateDebt from "@/components/build/CreateDebt";
+import DebtList from "@/components/build/DebtList";
 
 export async function Loader() {
   const user = Cookies.get("user_access");
-  console.log(user);
-
   if (!user) {
     return redirect("/login");
   }
+
+  // const allDebts = 
 
   return json(null);
 }
 
 export default function Dashboard() {
   const { debtModal, setDebtModal } = useProcessStore();
-
-  const logout = async () => {
-    Cookies.remove("user_access");
-    return window.location.reload();
-  };
 
   return (
     <div className="bg-neutral-100 min-h-full p-1 rounded-md">
@@ -36,7 +32,6 @@ export default function Dashboard() {
           <Button onClick={() => setDebtModal()}>Create debt</Button>
         </div>
 
-        <Button onClick={logout}>Log out</Button>
       </div>
 
       {debtModal && <CreateDebt />}
@@ -47,6 +42,8 @@ export default function Dashboard() {
       >
         <Plus className="h-10 w-10 " />
       </div>
+
+      <DebtList/>
     </div>
   );
 }

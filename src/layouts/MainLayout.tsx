@@ -5,11 +5,18 @@ import TopBar from "@/components/layout/TopBar";
 // import { LinkIcon } from "lucide-react";
 import logoblack from "@/assets/logoblack.svg";
 import { Link, Outlet } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import Cookies from "js-cookie";
 // import logowhite from "@/assets/logowhite.svg";
 
 export default function MainLayout() {
   // const location = useLocation();
   // const path = location.pathname;
+
+  const logout = async () => {
+    Cookies.remove("user_access");
+    return window.location.reload();
+  };
   return (
     <div className="">
       <section className="max-w-6xl mx-auto flex px-2">
@@ -22,7 +29,6 @@ export default function MainLayout() {
             </div>
 
             <div>Active accounts</div>
-            <Link to="/login">To login</Link>
 
             {/* <ul className="flex flex-col gap-1">
             {sidebarData.map((data) => {
@@ -35,6 +41,7 @@ export default function MainLayout() {
               );
             })}
           </ul> */}
+            <Button onClick={logout}>Log out</Button>
           </div>
 
           {/* <div className="mt-auto">
