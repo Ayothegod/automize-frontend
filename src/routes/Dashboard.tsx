@@ -7,11 +7,11 @@ import CreateDebt from "@/components/build/CreateDebt";
 
 export async function Loader() {
   const user = Cookies.get("user_access");
-  console.log(user);
+  // console.log(user);
 
-  if (!user) {
-    return redirect("/login");
-  }
+  // if (!user) {
+  //   return redirect("/login");
+  // }
 
   return json(null);
 }
@@ -25,7 +25,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="bg-neutral-100 min-h-full p-1">
+    <div className="bg-neutral-100 min-h-full p-1 rounded-md">
       <div className="bg-white rounded-md p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <div className="p-8 bg-gray-200 rounded-md"></div>
         <div className="p-8 bg-yellow-200 rounded-md"></div>

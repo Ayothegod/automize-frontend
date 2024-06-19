@@ -4,7 +4,7 @@ import { useProcessStore } from "@/lib/store/stateStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Loader2 } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
@@ -50,7 +50,7 @@ export default function CreateDebt() {
           },
         }
       );
-        console.log(response.data);
+      console.log(response.data);
       toast({
         description: `Dept created successfully`,
       });
@@ -88,6 +88,18 @@ export default function CreateDebt() {
     <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)] z-50 min-h-screen overflow-y-auto custom-scrollbar">
       <div className="flex items-center justify-center my-10 md:my-20 px-4 overflow-y-auto">
         <div className=" bg-white rounded-md p-4 w-full sm:w-[80%] md:w-1/2 overflow-y-auto">
+          <div
+            className="bg-neutral-100 p-1 w-max ml-auto rounded-md cursor-pointer sm:hidden"
+            onClick={() => setDebtModal()}
+          >
+            <X className="w-8 h-8" />
+          </div>
+          <div
+            className="absolute top-4 right-4 hidden sm:block bg-white rounded-md p-2 cursor-pointer"
+            onClick={() => setDebtModal()}
+          >
+            <X className="w-8 h-8" />
+          </div>
           <form
             method="post"
             onSubmit={handleSubmit(onSubmit)}
@@ -227,18 +239,25 @@ export default function CreateDebt() {
                 )}
               </div>
             </div>
-            <Button
-              type="submit"
-              className="mt-8 ml-auto w-full md:w-fit"
-              name="intent"
-              value="register"
-            >
-              {isCreatingDebt ? (
-                <Loader2 className="animate-spin" />
-              ) : (
-                "Create dept"
-              )}
-            </Button>
+
+            <div className="mt-12 flex flex-col sm:flex-row w-full gap-4 sm:justify-end">
+              <Button variant="outline" onClick={() => setDebtModal()}>
+                Cancel
+              </Button>
+
+              <Button
+                type="submit"
+                className=" w-full sm:w-max"
+                name="intent"
+                value="register"
+              >
+                {isCreatingDebt ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  "Create debt"
+                )}
+              </Button>
+            </div>
           </form>
         </div>
       </div>
