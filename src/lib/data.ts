@@ -1,18 +1,12 @@
 export const sidebarData = [
   { id: 1, title: "Dashboard", url: "/dashboard", iconType: "LayoutDashboard" },
-  { id: 2, title: "Messages", url: "/messages", iconType: "MessageCircle" },
-  { id: 3, title: "Publishing", url: "/Publishing", iconType: "SquarePen" },
+  // { id: 2, title: "Messages", url: "/messages", iconType: "MessageCircle" },
+  { id: 3, title: "Notification", url: "/notifications", iconType: "Bell" },
   { id: 4, title: "Analytics", url: "/Analytics", iconType: "BarChartBig" },
-  {
-    id: 5,
-    title: "Collaboration",
-    url: "/Collaboration",
-    iconType: "LibraryBig",
-  },
-  { id: 6, title: "Accounts", url: "/Accounts", iconType: "Users" },
+  { id: 5, title: "Account", url: "/Accounts", iconType: "User" },
 ];
 
-const isProd = false;
+const isProd = true;
 export const BASE_URL = isProd
   ? "https://full-edge-scrawny-profit-beta.pipeops.app/api/v1"
   : "http://127.0.0.1:8000/api/v1";
@@ -153,3 +147,32 @@ export type Debt = {
   payment_frequency: string;
   payment_method: string;
 };
+
+// react router dom fetchers with react hook  form example
+// use the fetchers to send data to db and hook form to get the input details and validation for reactjs
+
+// make it easy and short
+
+// const user = {
+//   id: 9,
+//   user: {
+//     id: 1,
+//     first_name: "",
+//     last_name: "",
+//     username: "aiiomide",
+//     email: "aiiomide@gmail.com",
+//   },
+//   person: {
+//     first_name: "Adebisi",
+//     last_name: "Ayomide",
+//     phone_number: "7823772378",
+//   },
+//   type: "CR",
+//   amount: 7823772378,
+//   currency: "US",
+//   due_date: "2024-06-22T00:00:00Z",
+//   interest_rate: 7823772378,
+//   status: "NOT PAID",
+//   payment_frequency: "MONTHLY",
+//   payment_method: "CASH",
+// };

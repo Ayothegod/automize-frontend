@@ -1,17 +1,16 @@
-import {
-  LoaderFunctionArgs,
-  json,
-  redirect,
-  useLoaderData,
-} from "react-router-dom";
-import Cookies from "js-cookie";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { useProcessStore } from "@/lib/store/stateStore";
 import CreateDebt from "@/components/build/CreateDebt";
 import DebtList from "@/components/build/DebtList";
+import { Button } from "@/components/ui/button";
 import { BASE_URL } from "@/lib/data";
+import { useProcessStore } from "@/lib/store/stateStore";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { Plus } from "lucide-react";
+import {
+  json,
+  redirect,
+  useLoaderData
+} from "react-router-dom";
 
 export async function Loader() {
   const user = Cookies.get("user_access");
@@ -45,12 +44,12 @@ export default function Dashboard() {
   return (
     <div className="bg-neutral-100 min-h-full p-1 rounded-md">
       <div className="bg-white rounded-md p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-8 bg-gray-200 rounded-md"></div>
+        {/* <div className="p-8 bg-gray-200 rounded-md"></div>
         <div className="p-8 bg-yellow-200 rounded-md"></div>
-        <div className="p-8 bg-purple-200 rounded-md"></div>
+        <div className="p-8 bg-purple-200 rounded-md"></div> */}
 
         {/* create debt desktop */}
-        <div className="hidden md:grid ">
+        <div className="grid ">
           <Button onClick={() => setDebtModal()}>Create debt</Button>
         </div>
       </div>

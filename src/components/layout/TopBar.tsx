@@ -6,7 +6,7 @@ import Logo from "./Logo";
 export default function TopBar({ picture, user }: any) {
   console.log(picture, user);
   return (
-    <div className="flex h-12 w-full items-center justify-between px-2 text-neutral-500 ">
+    <div className="flex h-12 w-full items-center justify-between text-neutral-500 ">
       <div className="flex-shrink-0 md:mr-16 md:hidden">
         <Logo logo={logo} className="h-8 w-8" />
       </div>

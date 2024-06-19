@@ -3,7 +3,7 @@ import {
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
+    // TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -54,12 +54,12 @@ export default function DebtList({ debts }: any) {
           ))}
         </TableBody>
 
-        <TableFooter>
+        {/* <TableFooter>
           <TableRow>
             <TableCell>Total</TableCell>
             <TableCell className="text-right">$2,500.00</TableCell>
           </TableRow>
-        </TableFooter>
+        </TableFooter> */}
       </Table>
     </div>
   );
