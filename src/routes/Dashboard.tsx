@@ -7,11 +7,11 @@ import CreateDebt from "@/components/build/CreateDebt";
 
 export async function Loader() {
   const user = Cookies.get("user_access");
-  // console.log(user);
+  console.log(user);
 
-  // if (!user) {
-  //   return redirect("/login");
-  // }
+  if (!user) {
+    return redirect("/login");
+  }
 
   return json(null);
 }
