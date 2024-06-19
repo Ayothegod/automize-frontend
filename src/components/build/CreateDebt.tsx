@@ -14,6 +14,10 @@ import { useToast } from "../ui/use-toast";
 
 type DebtSchemaType = z.infer<typeof debtSchema>;
 
+export async function Action() {
+  // const data = await request.json();
+}
+
 export default function CreateDebt() {
   const { setDebtModal, isCreatingDebt, setIsCreatingDebt } = useProcessStore();
   const { toast } = useToast();
@@ -54,6 +58,7 @@ export default function CreateDebt() {
       toast({
         description: `Dept created successfully`,
       });
+      window.location.reload()
       return null;
     } catch (error: any) {
       console.log(error);
@@ -107,7 +112,7 @@ export default function CreateDebt() {
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs">Debtor First-Name</Label>
+                <Label className="text-xs">Debtor/Creditor First-Name</Label>
                 <Input
                   type="text"
                   {...register("debtorFirstname")}
@@ -120,7 +125,7 @@ export default function CreateDebt() {
                 )}
               </div>
               <div>
-                <Label className="text-xs">Debtor Last-Name</Label>
+                <Label className="text-xs">Debtor/Creditor Last-Name</Label>
                 <Input
                   type="text"
                   {...register("debtorLastname")}
@@ -133,7 +138,7 @@ export default function CreateDebt() {
                 )}
               </div>
               <div>
-                <Label className="text-xs">Debtor Phone-Number</Label>
+                <Label className="text-xs">Debtor/Creditor Phone-Number</Label>
                 <Input
                   type="number"
                   {...register("debtorPhonenumber")}

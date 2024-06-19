@@ -12,7 +12,7 @@ export const sidebarData = [
   { id: 6, title: "Accounts", url: "/Accounts", iconType: "Users" },
 ];
 
-const isProd = true;
+const isProd = false;
 export const BASE_URL = isProd
   ? "https://full-edge-scrawny-profit-beta.pipeops.app/api/v1"
   : "http://127.0.0.1:8000/api/v1";
@@ -130,3 +130,26 @@ export const mockDebts = [
     payment_method: "BANK TRANSFER",
   },
 ];
+
+export type Debt = {
+  id: number;
+  user: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    username: string;
+    email: string;
+  };
+  person: {
+    first_name: string;
+    last_name: string;
+    phone_number: string;
+  };
+  type: string;
+  amount: number;
+  currency: string;
+  due_date: string;
+  interest_rate: number;
+  payment_frequency: string;
+  payment_method: string;
+};

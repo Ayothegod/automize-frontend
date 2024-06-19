@@ -1,18 +1,18 @@
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from "@/components/ui/table";
-import { mockDebts } from "@/lib/data";
+import { Debt } from "@/lib/data";
 import { Link } from "react-router-dom";
 import TableDate from "./TableDate";
 
-export default function DebtList() {
+export default function DebtList({ debts }: any) {
   return (
     <div className="bg-white p-4 rounded-md mt-2">
       <Table className=" max-w-full">
@@ -33,9 +33,9 @@ export default function DebtList() {
         {/* special effect on hover */}
 
         <TableBody>
-          {mockDebts.map((invoice) => (
-            <Link to={`/debts/${invoice.id}`}>
-              <TableRow key={invoice.id}>
+          {debts.map((invoice: Debt) => (
+            <Link to={`/debts/${invoice.id}`} key={invoice.id}>
+              <TableRow>
                 <TableCell className="font-medium">{invoice.id}</TableCell>
                 <TableCell className="font-medium ">{invoice.type}</TableCell>
                 <TableCell className="font-medium ">{invoice.amount}</TableCell>

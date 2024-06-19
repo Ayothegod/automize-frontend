@@ -1,7 +1,7 @@
 export default function TableDate({ date }: any) {
   const newDate = new Date(date);
 
-  const formattedDate = newDate.toLocaleString('en-US', {
+  const formattedDate = newDate.toLocaleString('en-UK', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',

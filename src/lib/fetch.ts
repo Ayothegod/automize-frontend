@@ -1,4 +1,10 @@
 
-
-// export const 
+ 
+export const getAllDebts = async() => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
 
