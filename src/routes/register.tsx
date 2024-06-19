@@ -12,6 +12,7 @@ import { BASE_URL } from "@/lib/data";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useProcessStore } from "@/lib/store/stateStore";
+import asset from "@/assets/asset.jpg"
 
 type RegisterSchemaType = z.infer<typeof registerSchema>;
 
@@ -86,9 +87,7 @@ export default function Register() {
       <div className="flex min-h-screen flex-col sm:flex-row">
         {/* first part */}
         <div className="hidden min-h-screen bg-neutral-200 sm:block sm:w-1/2">
-          <div className="mx-auto max-w-[448px]">
-            <p>Hello bro</p>
-          </div>
+        <img src={asset} alt="main image" className="h-full w-full object-cover object-center"/>
         </div>
 
         {/* second part */}

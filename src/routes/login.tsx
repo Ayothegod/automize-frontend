@@ -12,6 +12,7 @@ import { Loader2 } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, json, redirect, useNavigate } from "react-router-dom";
 import { z } from "zod";
+import asset from "@/assets/asset.jpg"
 
 type LoginSchemaType = z.infer<typeof loginSchema>;
 
@@ -94,13 +95,14 @@ export default function Login() {
       <div className="flex h-screen flex-col sm:flex-row">
         {/* first part */}
         <div className="hidden h-full bg-neutral-200 sm:block sm:w-1/2">
-          <div className="mx-auto max-w-[448px]">
-            <p>Hello</p>
+          {/* <div className="mx-auto max-w-[448px]"> */}
+            <img src={asset} alt="main image" className="h-full w-full object-cover object-center"/>
+            {/* <p>Hello</p>
             {process && <p className="text-5xl text-amber-800">Fire</p>}
             <Button onClick={() => setProcess()}>
               {process ? "End Process" : "Update PROCESS"}
-            </Button>
-          </div>
+            </Button> */}
+          {/* </div> */}
         </div>
 
         {/* second part */}
