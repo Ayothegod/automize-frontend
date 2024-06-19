@@ -93,7 +93,7 @@ export default function Debt() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="mt-8 bg-amber-100 rounded-md p-2">
+          <div className="mt-8 bg-blue-100 rounded-md p-2">
             <p className="text- font-bold mb-2">User details</p>
             <div className="text-neutral-600 text-sm">
               <p>
